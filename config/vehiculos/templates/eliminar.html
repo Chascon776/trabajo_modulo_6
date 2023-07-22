@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Lista Tareas</h1>
+{{error}}
+
+<form method="POST" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Serial Carroceria</th>
+                <th scope="col">Serial Motor</th>
+                <th scope="col">categoria</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Condicion Precio</th>
+                <th scope="col">Accion</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%csrf_token%}
+            <tr>
+             <td> {{lista.marca}}</td>
+             <td> {{lista.modelo}}</td>
+             <td> {{lista.serie_carroceria}}</td>
+             <td> {{lista.serie_motor}}</td>
+             <td> {{lista.categoria}}</td>
+             <td> {{lista.precio}}</td>
+             {% if lista.precio > 0 and lista.precio < 10000 %} <td>Bajo</td>{% endif %}
+             {% if lista.precio > 9999 and lista.precio < 300000 %} <td>medio</td>{% endif %}
+             {% if lista.precio > 300000 %} <td>alto</td>{% endif %} 
+             <td scope="row">
+                <button class="btn btn-link"><i class="fa-solid fa-check"></i></button>
+                <a href="/vehiculo/listar"><i class="fa-solid fa-x"></i></button></a>
+            </th>
+            </tr>
+        </tbody>
+
+    </table>
+   
+</form>
+
+
+{% endblock %}

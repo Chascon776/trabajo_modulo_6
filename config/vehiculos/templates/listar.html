@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Listado de vehiculos</h1>
+<div class="alert alert-warning" role="alert">
+    {{error}}
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Serial Carroceria</th>
+            <th scope="col">Serial Motor</th>
+            <th scope="col">categoria</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Condicion Precio</th>
+            <th scope="col">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        {% for lista in lista_v %}
+        <tr>
+            <td> {{lista.marca}}</td>
+            <td> {{lista.modelo}}</td>
+            <td> {{lista.serie_carroceria}}</td>
+            <td> {{lista.serie_motor}}</td>
+            <td> {{lista.categoria}}</td>
+            <td> {{lista.precio}}</td>
+
+            {% if lista.precio > 0 and lista.precio < 10000 %} <td>Bajo</td>{% endif %}
+                {% if lista.precio > 9999 and lista.precio < 300000 %} <td>medio</td>{% endif %}
+                    {% if lista.precio > 300000 %} <td>alto</td>{% endif %}
+                    <td>
+                        {% if user.is_authenticated %}
+                        {% if perms.vehiculos.add_vehiculomodel %}
+                        <div class="d-flex justify-content-end">
+                            <a class="nav-link active" aria-current="page" href="/vehiculo/editar/{{lista.id}}"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="nav-link active" aria-current="page" href="/vehiculo/eliminar/{{lista.id}}"><i
+                                    class="fa-solid fa-trash"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

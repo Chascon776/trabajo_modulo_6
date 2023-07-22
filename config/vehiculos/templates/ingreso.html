@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+<h1>Agregar Vehiculos</h1>
+<div class="alert alert-warning" role="alert">
+    {{error}}
+</div>
+
+<form method="POST">
+    {%csrf_token%}
+    <div class="mb-3 row mx-5">
+        <div class="col-4">
+          {{ form|crispy }}
+       
+      
+    <button>
+        Ingresar Vehiculo
+    </button>
+</div>
+</div>
+</form>
+
+
+{% endblock %}
